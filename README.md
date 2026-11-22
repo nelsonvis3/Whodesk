@@ -2,16 +2,7 @@
 
 Sistema de tickets de soporte con asistente de IA, estilo Freshdesk. Un único servicio Django sirve la API REST y el frontend.
 
-[![CI](https://github.com/nelsonvis3/whodesk/actions/workflows/ci.yml/badge.svg)](https://github.com/nelsonvis3/whodesk/actions/workflows/ci.yml)
-![Python](https://img.shields.io/badge/python-3.12-blue)
-![Django](https://img.shields.io/badge/django-6.1-0c4b33)
-
 **[Demo en vivo](https://TU-APP.onrender.com)** · **[API docs](https://TU-APP.onrender.com/api/docs/)** · [Evaluación del asistente](docs/eval.md)
-
-<!-- Capturas: guardalas en docs/screenshots/ y descomentá.
-![Panel](docs/screenshots/dashboard.png)
-![Ticket](docs/screenshots/ticket.png)
--->
 
 ## Demo
 
