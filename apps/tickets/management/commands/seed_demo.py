@@ -257,9 +257,6 @@ class Command(BaseCommand):
         users = {}
         for email, first, last, role in USERS:
             u = User.objects.create_user(email, password, first_name=first, last_name=last, role=role)
-            if role == Role.ADMIN:
-                u.is_staff = u.is_superuser = True
-                u.save()
             users[email.split("@")[0]] = u
         cats = {n: Category.objects.create(name=n) for n in CATEGORIES}
         for title, public, body in ARTICLES:

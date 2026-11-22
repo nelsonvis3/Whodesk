@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
     path("auth/register/", views.RegisterView.as_view()),
     path("auth/login/", views.LoginView.as_view()),
+    path("auth/password/reset/", views.PasswordResetRequestView.as_view()),
+    path("auth/password/reset/confirm/", views.PasswordResetConfirmView.as_view()),
     path("auth/logout/", views.LogoutView.as_view()),
     path("auth/token/", views.ThrottledTokenObtainView.as_view()),
     path("auth/token/refresh/", views.ThrottledTokenRefreshView.as_view()),

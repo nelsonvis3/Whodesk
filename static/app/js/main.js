@@ -16,6 +16,8 @@ let seq = 0;
 const ROUTES = [
   [/^\/login$/, auth.renderLogin, null, true],
   [/^\/register$/, auth.renderRegister, null, true],
+  [/^\/forgot-password$/, auth.renderForgotPassword, null, true],
+  [/^\/reset-password$/, auth.renderResetPassword, null, true],
   [/^\/dashboard$/, dashboard.render, "dashboard"],
   [/^\/tickets$/, tickets.render, "tickets"],
   [/^\/tickets\/(\d+)$/, ticketDetail.render, "tickets"],
@@ -41,7 +43,8 @@ async function route() {
   if (!match) { location.hash = state.user ? "#/dashboard" : "#/login"; return; }
   const [m, fn, key, isPublic] = match;
   if (!state.user && !isPublic) { location.hash = "#/login"; return; }
-  if (state.user && isPublic) { location.hash = "#/dashboard"; return; }
+  const passwordResetRoute = path === "/forgot-password" || path === "/reset-password";
+  if (state.user && isPublic && !passwordResetRoute) { location.hash = "#/dashboard"; return; }
 
   if (isPublic) {
     resetShell(); clear(root);

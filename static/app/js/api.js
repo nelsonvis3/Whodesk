@@ -20,7 +20,7 @@ function messageOf(data, status) {
 }
 
 const LABELS = { email: "Email", password: "Contraseña", title: "Asunto", description: "Descripción", body: "Mensaje",
-  first_name: "Nombre", last_name: "Apellido", question: "Pregunta", status: "Estado", priority: "Prioridad" };
+  new_password: "Contraseña nueva", token: "Enlace", first_name: "Nombre", last_name: "Apellido", question: "Pregunta", status: "Estado", priority: "Prioridad" };
 
 function csrfToken() {
   const m = document.cookie.match(/(?:^|; )csrftoken=([^;]*)/);

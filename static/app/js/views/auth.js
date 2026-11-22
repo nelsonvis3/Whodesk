@@ -131,7 +131,8 @@ export async function renderLogin(root) {
     onclick: () => { email.value = emailAddress; pass.value = password; submit(); } },
     h("span", { class: "demo-option-copy" }, h("strong", {}, role), h("small", {}, description)),
     h("span", { class: "demo-option-action" }, "Ingresar"));
-  const form = h("form", { onsubmit: submit }, err, field("Correo electrónico", email), field("Contraseña", pass), btn);
+  const form = h("form", { onsubmit: submit }, err, field("Correo electrónico", email), field("Contraseña", pass),
+    h("p", { class: "t-sub", style: "margin:0 0 16px;text-align:right" }, h("a", { href: "#/forgot-password" }, "¿Olvidaste tu contraseña?")), btn);
   const demos = h("div", { class: "demo-box" },
     h("strong", {}, "Probar la demo por perfil"),
     h("p", { class: "t-sub" }, "Cada acceso muestra el sistema con permisos diferentes."),
@@ -141,6 +142,55 @@ export async function renderLogin(root) {
       demo("admin@demo.test", "demo1234", "Administrador", "Explorar el perfil administrador")));
   root.append(authLayout("Ingresá a Whodesk", "Usá el correo asociado a tu cuenta para continuar.", form,
     h("p", { class: "t-sub", style: "margin-top:18px" }, "¿No tenés cuenta? ", h("a", { href: "#/register" }, "Registrate")), demos));
+}
+
+export async function renderForgotPassword(root) {
+  document.title = "Whodesk · Restablecer contraseña";
+  const err = h("div", { class: "error-box", hidden: true, role: "alert" });
+  const notice = h("div", { class: "auth-notice", hidden: true, role: "status", "aria-live": "polite" });
+  const email = h("input", { id: "reset-email", type: "email", autocomplete: "email", required: true, placeholder: "tu@email.com" });
+  const btn = h("button", { class: "btn btn-primary", type: "submit", style: "width:100%;justify-content:center" }, "Enviar enlace");
+  const form = h("form", { onsubmit: async (e) => {
+    e.preventDefault(); err.hidden = true; notice.hidden = true; btn.disabled = true;
+    try {
+      const response = await post("/auth/password/reset/", { email: email.value });
+      notice.textContent = response.detail;
+      notice.hidden = false;
+      form.hidden = true;
+    } catch (ex) { err.textContent = ex.message; err.hidden = false; btn.disabled = false; }
+  } }, err, field("Correo electrónico", email), btn);
+  root.append(authLayout("Restablecer contraseña", "Te enviaremos un enlace para elegir una contraseña nueva.", form,
+    h("p", { class: "t-sub", style: "margin-top:16px" }, "¿Recordaste tu contraseña? ", h("a", { href: "#/login" }, "Volvé a ingresar")), notice));
+}
+
+export async function renderResetPassword(root, { query }) {
+  document.title = "Whodesk · Elegir contraseña nueva";
+  const uid = query.get("uid") || "";
+  const token = query.get("token") || "";
+  const err = h("div", { class: "error-box", hidden: true, role: "alert" });
+  const pass = h("input", { id: "new-password", type: "password", autocomplete: "new-password", required: true, minlength: 8 });
+  const confirm = h("input", { id: "confirm-password", type: "password", autocomplete: "new-password", required: true, minlength: 8 });
+  const btn = h("button", { class: "btn btn-primary", type: "submit", style: "width:100%;justify-content:center" }, "Guardar contraseña");
+  const form = h("form", { onsubmit: async (e) => {
+    e.preventDefault(); err.hidden = true;
+    if (pass.value !== confirm.value) { err.textContent = "Las contraseñas no coinciden."; err.hidden = false; return; }
+    btn.disabled = true;
+    try {
+      await post("/auth/password/reset/confirm/", { uid, token, new_password: pass.value });
+      state.user = null;
+      location.hash = "#/login";
+    } catch (ex) { err.textContent = ex.message; err.hidden = false; btn.disabled = false; }
+  } }, err, field("Contraseña nueva", pass, "Usá una contraseña que no sea común ni demasiado simple."),
+    field("Repetí la contraseña", confirm), btn);
+
+  if (!uid || !token) {
+    form.hidden = true;
+    err.textContent = "El enlace no es válido o ya venció. Podés pedir uno nuevo.";
+    err.hidden = false;
+  }
+  root.append(authLayout("Elegí una contraseña nueva", "El enlace vence a los 30 minutos y solo puede usarse una vez.", form,
+    h("p", { class: "t-sub", style: "margin-top:16px" }, "¿Necesitás otro enlace? ", h("a", { href: "#/forgot-password" }, "Solicitar uno nuevo")),
+    h("p", { class: "t-sub" }, "¿Ya tenés acceso? ", h("a", { href: "#/login" }, "Ingresá"))));
 }
 
 export async function renderRegister(root) {

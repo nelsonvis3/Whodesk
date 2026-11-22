@@ -12,6 +12,7 @@ Los datos son ficticios; no cargues información real.
 ## Funcionalidades
 
 - **Roles** (cliente, agente, admin) con login por email: sesión + CSRF para el frontend y JWT para clientes externos.
+- **Restablecimiento de contraseña** por correo: enlace de un solo uso con vencimiento de 30 minutos.
 - **Tickets** con prioridad, categoría, asignación y notas privadas que el cliente no ve.
 - **Máquina de estados** con reglas por rol (transición inválida: `409`) y **auditoría** inmutable de cada cambio.
 - **Permisos por objeto**: un ticket ajeno responde `404`.
@@ -51,7 +52,7 @@ Evaluación: Hit@1 95 % sobre 30 preguntas propias; es un corpus chico escrito p
 ## Despliegue
 
 `render.yaml` define un servicio web y una base PostgreSQL. En Render: *New → Blueprint* y elegir el repositorio. Para activar la IA, cargar `LLM_PROVIDER`, `LLM_API_KEY` y `LLM_MODEL`.
-Las variables están en `.env.example`. Con otro proveedor sirve el mismo `Dockerfile` (`DATABASE_URL`, `SECRET_KEY`, `ALLOWED_HOSTS`).
+Las variables están en `.env.example`. Para entregar restablecimientos en producción configurá SMTP con `EMAIL_HOST`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, `EMAIL_PORT`, `EMAIL_USE_TLS` y `DEFAULT_FROM_EMAIL`. En desarrollo el enlace se imprime en la consola del servidor. Con otro proveedor sirve el mismo `Dockerfile` (`DATABASE_URL`, `SECRET_KEY`, `ALLOWED_HOSTS`).
 
 > Las cuentas demo, incluida la de admin, tienen contraseña pública. Usalas solo como sandbox o cambiá `DEMO_PASSWORD`.
 
@@ -71,7 +72,7 @@ python manage.py eval_rag --sweep
 
 ## Limitaciones
 
-Búsqueda léxica, índice en memoria, sin adjuntos ni emails, y la calidad de la respuesta generada por el LLM no está evaluada.
+Búsqueda léxica, índice en memoria, sin adjuntos ni emails de notificación, y la calidad de la respuesta generada por el LLM no está evaluada.
 
 ## Autor
 

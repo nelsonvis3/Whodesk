@@ -4,12 +4,12 @@ ARTICLES = [
     (
         "Cómo restablecer tu contraseña",
         True,
-        "Si olvidaste tu contraseña, entrá a la pantalla de inicio de sesión y elegí «Olvidé mi contraseña». "
-        "Ingresá el email de tu cuenta y te enviaremos un enlace de restablecimiento.\n\n"
-        "El enlace vence a los 30 minutos y solo se puede usar una vez. Si venció, pedí uno nuevo. Revisá la "
-        "carpeta de spam si no lo ves en tu bandeja de entrada.\n\n"
-        "Si no recibís el correo después de 10 minutos, verificá que escribiste bien el email de la cuenta. "
-        "Si tu cuenta usa verificación en dos pasos, vas a necesitar también el código de tu autenticador.",
+        "En la pantalla de inicio de sesión, elegí «¿Olvidaste tu contraseña?» e ingresá el email asociado a tu "
+        "cuenta. Si hay una cuenta con ese email, vas a recibir un enlace para elegir una contraseña nueva.\n\n"
+        "El enlace vence a los 30 minutos y solo se puede usar una vez. Si venció o ya lo usaste, volvé a pedir "
+        "uno desde la pantalla de inicio de sesión. Revisá la carpeta de spam si no lo ves en tu bandeja de entrada.\n\n"
+        "Si no recibís el correo, verificá que escribiste bien el email de la cuenta. No compartas el enlace con "
+        "nadie; soporte nunca te va a pedir que envíes tu contraseña.",
     ),
     (
         "Activar la verificación en dos pasos",
