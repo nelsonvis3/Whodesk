@@ -1,0 +1,30 @@
+# Blueprint de Render: un único servicio web (Django sirve la API y el frontend) + una base PostgreSQL.
+# Verificá en la documentación vigente de Render las condiciones del plan gratuito (límites, vencimiento
+# de la base, arranque en frío) antes de usarlo para algo más que una demo.
+services:
+  - type: web
+    name: helpdesk
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health/
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: helpdesk-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: SEED_DEMO
+        value: "1"
+      - key: LLM_PROVIDER
+        value: none          # cambialo a anthropic u openai y cargá LLM_API_KEY / LLM_MODEL en el panel
+      - key: LLM_API_KEY
+        sync: false
+      - key: LLM_MODEL
+        sync: false
+
+databases:
+  - name: helpdesk-db
+    plan: free

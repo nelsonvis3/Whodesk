@@ -1,0 +1,33 @@
+# Desarrollo local con PostgreSQL: docker compose up --build  ->  http://localhost:8000
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: helpdesk
+      POSTGRES_USER: helpdesk
+      POSTGRES_PASSWORD: helpdesk   # solo para desarrollo local
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U helpdesk -d helpdesk"]
+      interval: 5s
+      retries: 10
+
+  web:
+    build: .
+    ports: ["8000:8000"]
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DEBUG: "False"
+      COOKIE_SECURE: "False"          # http local: sin esto el navegador descarta la cookie de sesión
+      SECRET_KEY: "clave-solo-para-desarrollo-local-0123456789abcdef"
+      ALLOWED_HOSTS: "localhost,127.0.0.1"
+      DATABASE_URL: "postgres://helpdesk:helpdesk@db:5432/helpdesk"
+      SEED_DEMO: "1"
+      LLM_PROVIDER: "${LLM_PROVIDER:-none}"
+      LLM_API_KEY: "${LLM_API_KEY:-}"
+      LLM_MODEL: "${LLM_MODEL:-}"
+
+volumes:
+  pgdata:

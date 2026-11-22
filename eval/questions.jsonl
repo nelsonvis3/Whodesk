@@ -1,0 +1,30 @@
+{"question": "me olvidé la clave y no puedo entrar", "expected": "Cómo restablecer tu contraseña"}
+{"question": "el link para cambiar la contraseña ya no funciona", "expected": "Cómo restablecer tu contraseña"}
+{"question": "cuánto dura el enlace de recuperación de la cuenta", "expected": "Cómo restablecer tu contraseña"}
+{"question": "cómo activo la doble autenticación", "expected": "Activar la verificación en dos pasos"}
+{"question": "perdí mi teléfono con el autenticador, qué hago", "expected": "Activar la verificación en dos pasos"}
+{"question": "dónde cambio mi plan por uno más grande", "expected": "Cambiar de plan o cancelar la suscripción"}
+{"question": "quiero darme de baja de la suscripción", "expected": "Cambiar de plan o cancelar la suscripción"}
+{"question": "si cancelo me devuelven el mes que ya pagué", "expected": "Cambiar de plan o cancelar la suscripción"}
+{"question": "dónde descargo mis facturas en pdf", "expected": "Descargar facturas y cambiar datos fiscales"}
+{"question": "la factura salió con otra razón social", "expected": "Descargar facturas y cambiar datos fiscales"}
+{"question": "mi tarjeta fue rechazada", "expected": "Qué hacer si un pago es rechazado"}
+{"question": "me cobraron dos veces este mes", "expected": "Qué hacer si un pago es rechazado"}
+{"question": "cuántas veces reintentan el cobro", "expected": "Qué hacer si un pago es rechazado"}
+{"question": "cómo bajo mis datos en excel", "expected": "Exportar tus datos a CSV"}
+{"question": "cuántas filas puedo exportar", "expected": "Exportar tus datos a CSV"}
+{"question": "cómo agrego a un compañero al equipo", "expected": "Invitar usuarios a tu equipo"}
+{"question": "la invitación a mi equipo venció", "expected": "Invitar usuarios a tu equipo"}
+{"question": "quiero usar mi propio servidor de correo para los avisos", "expected": "Conectar tu cuenta de correo para las notificaciones"}
+{"question": "falla la prueba de conexión smtp", "expected": "Conectar tu cuenta de correo para las notificaciones"}
+{"question": "cómo borro mi cuenta", "expected": "Eliminar tu cuenta y tus datos"}
+{"question": "en qué horario atienden", "expected": "Horarios y canales de soporte"}
+{"question": "cuánto tardan en responder un ticket urgente", "expected": "Horarios y canales de soporte"}
+{"question": "cuál es la capital de Australia", "expected": null}
+{"question": "recomendame una receta de milanesas", "expected": null}
+{"question": "tienen aplicación para celulares iOS", "expected": null}
+{"question": "cómo integro el sistema con Salesforce", "expected": null}
+{"question": "cuánto cuesta el plan premium", "expected": null}
+{"question": "puedo cambiar el idioma de la interfaz a inglés", "expected": null}
+{"question": "quién es el dueño de la empresa", "expected": null}
+{"question": "dónde queda la oficina física", "expected": null}

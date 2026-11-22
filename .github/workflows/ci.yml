@@ -1,0 +1,32 @@
+name: ci
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: helpdesk
+          POSTGRES_USER: helpdesk
+          POSTGRES_PASSWORD: helpdesk
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U helpdesk" --health-interval 5s --health-retries 10
+    env:
+      DATABASE_URL: postgres://helpdesk:helpdesk@localhost:5432/helpdesk
+      SECRET_KEY: ci-only-secret-key-0123456789abcdef0123456789
+      DEBUG: "True"
+    steps:
+      - uses: actions/checkout@v4   # verificá las versiones vigentes de las actions
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements-dev.txt
+      - run: ruff check . && ruff format --check .
+      - run: python manage.py makemigrations --check --dry-run
+      - run: pytest --cov=apps --cov-report=term-missing
